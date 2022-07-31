@@ -1,0 +1,29 @@
+#include <bits/stdc++.h>
+using namespace std;
+const int N = 10000;
+int dp[N][N];
+
+//Iterative
+int I_LCS(string a, string b) {
+  int n = a.size(), m = b.size();
+  for (int i = 0; i <= n; i++) {
+    for (int j = 0; j <= m; j++) {
+      if(i == 0 || j == 0) {
+        dp[i][j] = 0;
+        continue;
+      }
+      if(a[i-1] == b[j-1]) dp[i][j] = 1+dp[i-1][j-1];
+      else dp[i][j] = max(dp[i-1][j], dp[i][j-1]);
+    }
+  }
+  return dp[n][m];
+}
+
+
+int main() {
+  ios_base::sync_with_stdio(false); cin.tie(NULL);
+  memset(dp, -1, sizeof(dp));
+  string a, b; cin >> a >> b;
+  int n = a.size(), m = b.size();
+  cout << I_LCS(a, b) << endl;
+}
