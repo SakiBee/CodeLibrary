@@ -1,0 +1,29 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+const int N = 1e8;
+int spf[N + 8];
+void cal_spf () {
+    for (int i = 1; i <= N; i++) spf[i] = i;
+    for (int i = 2; i * i <= N; i++) {
+        if (spf[i] == i) {
+            for(int j = i * i; j <= N; j += i) {
+                spf[j] = min(spf[j], i);
+            }
+        }
+    }
+}
+vector<int> p_fact(int n) { //n<=1e6
+    vector<int> ret;
+    while (n > 1) {
+      ret.push_back(spf[n]);
+      n /= spf[n];
+    }
+    return ret;
+}
+
+
+int32_t main() {
+  ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
+  cal_spf();
+}
