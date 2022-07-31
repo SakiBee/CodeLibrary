@@ -1,0 +1,36 @@
+#include <bits/stdc++.h>
+//#include<dbg.h>
+using namespace std;
+#define ll long long
+
+const ll N = 1e8 + 9;
+vector <ll> primes;
+bool prime[N];
+void sieve(){
+    prime[1] = true;
+    for(ll i = 2; i*i <= N-9; i++) if(!prime[i]){
+        for(ll j = i*i; j <= N-9; j+=i) prime[j] = true;}
+    for(ll i=2; i<=N-9; i++){if(!prime[i]) primes.push_back(i);}
+}
+
+int NOD(int n){
+    int res = 1;
+    for(int i = 0; i<primes.size() && primes[i]*primes[i] <= n; i++){
+        if(n%primes[i] == 0){
+            int p =0;
+            while(n%primes[i] == 0){
+                n /= primes[i];
+                p++;
+            }
+            res *= p+1;
+        }
+    }if(n!=1) res *= 2;
+    return res;
+}
+int32_t main() {
+  ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
+  sieve();
+  cout << NOD(12) << endl;
+}
+
+
