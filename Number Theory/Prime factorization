@@ -1,0 +1,35 @@
+#include <bits/stdc++.h>
+//#include<dbg.h>
+using namespace std;
+#define ll long long
+
+const ll N = 1e8 + 9;
+vector <ll> primes;
+bool prime[N];
+void sieve(){
+    prime[1] = true;
+    for(ll i = 2; i*i <= N-9; i++) if(!prime[i]){
+        for(ll j = i*i; j <= N-9; j+=i) prime[j] = true;}
+    for(ll i=2; i<=N-9; i++){if(!prime[i]) primes.push_back(i);}
+}
+
+vector<int> prime_fact(int n){
+    vector<int> fact;
+    for(int i = 0; i<primes.size() && primes[i]*primes[i] <= n; i++){
+        if(n % primes[i] == 0){
+            while(n % primes[i] == 0){
+                fact.push_back(primes[i]);
+                n /= primes[i];
+            }
+        }
+    }
+    if(n != 1) fact.push_back(n);
+    return fact;
+}
+int32_t main() {
+  ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
+  sieve();
+  vector<int>pr_facts = prime_fact(12);
+  for (auto u : pr_facts) cout << u << " ";
+}
+
