@@ -1,0 +1,37 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+const int N = 1e8 + 9;
+vector <int> primes;
+bool prime[N];
+void sieve(){
+  prime[1] = true;
+  for(int i = 2; i*i <= N-9; i++) {
+    if(!prime[i]) {
+      for(int j = i*i; j <= N-9; j+=i) {
+        prime[j] = true;
+      }
+    }
+  }
+
+  for(int i=2; i<=N-9; i++) {
+    if(!prime[i]) {
+      primes.push_back(i);
+    }
+  }
+}
+
+
+int32_t main() {
+  ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
+  sieve();
+
+  //print primes from 1 to 100;
+  int i = 0;
+  while(primes[i] <= 100) {
+    cout << primes[i] << " ";
+    i++;
+  }
+  cout << endl;
+
+}
