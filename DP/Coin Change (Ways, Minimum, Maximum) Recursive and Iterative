@@ -1,0 +1,57 @@
+#include <bits/stdc++.h>
+using namespace std;
+const int N = 1e9;
+
+
+// DP for Number of ways of coin change in recursive way
+int R_Ways(vector<int>& v, int n, int t, vector<vector<int>>& dp) {
+	if(t == 0) return dp[n][t] = 1;
+	if((t > 0 and n <= 0) || t < 0) return dp[n][t] = 0;
+  if(dp[n][t] != -1) return dp[n][t];
+  if(v[n - 1] <= t) 
+    return dp[n][t] = R_Ways(v, n-1, t, dp) + R_Ways(v, n, t - v[n - 1], dp);
+	else return dp[n][t] = R_Ways(v, n-1, t, dp);
+}
+
+// DP for Number of ways of coin change in Iterative way
+int I_Ways(vector<int>& v, int n, int t) {
+  vector <int> table(t + 1, 0);
+  table[0] = 1;
+  for (int i = 0; i < n; i++) {
+    for (int j = v[i]; j <= t; j++) {
+      table[j] += table[j - v[i]];
+    }
+  }
+  return table[t];
+}
+
+
+//DP for finding minimum/maximum coins in Iterative way
+int min_Coin(vector<int>& v, int n, int t) {
+  int dp[t+1];
+  //for min, use INT_MAX, for max, use -1
+  for(int i = 0; i <= t; i++) dp[i] = N; 
+  for(int i = 0; i <= t; i++) cout << dp[i] << " "; cout << endl; 
+  dp[0] = 0;
+  for (int i = 1; i <= t; i++) {
+    for (int j = 0; j < n; j++) {
+      //for min or max
+      if(v[j] <= i) dp[i] = min(dp[i], 1 + dp[i - v[j]]);
+    }
+  }
+  for(int i = 0; i <= t; i++) cout << dp[i] << " "; cout << endl; 
+  return dp[t];
+}
+
+
+int main() {
+  int n, amount; cin >> n >> amount;;
+  vector <int> coins(n);
+  vector<vector<int>> dp(n + 1, vector<int> (amount+1, -1));
+
+  for (int i = 0; i < n; i++) cin >> coins[i];
+  //cout << R_Ways(coins, n, amount, dp) << endl;
+  //cout << I_Ways(coins, n, amount) << endl;
+  //cout << min_Coin(coins, n, amount) << endl;
+  
+}
