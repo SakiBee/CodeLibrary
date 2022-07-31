@@ -1,0 +1,31 @@
+//Merge sort
+#include<bits/stdc++.h>
+using namespace std;
+void merge(vector<int> &v,int l, int mid, int r) {
+    int i=l, j = mid+1, k = l;
+    vector<int>temp(100000);
+    while(i <= mid && j <= r){
+        if(v[i] < v[j]) temp[k++] = v[i++];
+        else temp[k++] = v[j++];
+    }
+    while(i <= mid) temp[k++] = v[i++];
+    while(j <= r) temp[k++] = v[j++];
+
+    for(i = l; i < k; i++) v[i] = temp[i];
+}
+void mergsort(vector<int> &v, int l, int r) {
+    if(l < r) {
+        int mid = (l + r) >> 1;
+        mergsort(v, l, mid);
+        mergsort(v, mid+1, r);
+        merge(v, l, mid, r);
+    }
+}
+int main() {
+    int n; cin >> n;
+    vector<int> v(n);
+    for(int i = 0; i < n; i++) cin >> v[i];
+    mergsort(v, 0, n - 1);
+    for(int i = 0; i < n; i++) cout << v[i] << " ";
+    cout << endl;
+}
