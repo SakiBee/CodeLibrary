@@ -13,15 +13,11 @@ int R_lis(vector<int>& v, int n) {
   }
   return dp[n];
 }
-void _R_lis(vector<int>& v) {
-  int n = v.size();
-  for (int i = 0; i < n; i++) dp[i] = -1;
-  cout << R_lis(v, n-1) << endl;
-}
 
 int main() {
   int n; cin >> n;
   vector<int> v(n);
   for (int i = 0; i < n; i++) cin >> v[i];
-  _R_lis(v);
+  memset(dp, -1, sizeof(dp));
+  cout << R_lis(v, n-1) << endl;
 }
