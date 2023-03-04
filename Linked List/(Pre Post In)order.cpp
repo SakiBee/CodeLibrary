@@ -1,7 +1,3 @@
-/*
-Author: Md. Sakib Uddin.
-Reg: 2018-15-32.
-*/
 #include<bits/stdc++.h>
 
 struct node{
