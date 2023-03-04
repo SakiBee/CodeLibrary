@@ -1,0 +1,4 @@
+ll mulMod(ll a,ll b, ll M) { a%=M,b%=M; if(M <= 1000000009) return a * b % M; ll res = 0;while(a > 0){
+    a%=M,b%=M; if (a & 1){ res += b; if (res >= M) res -= M;} a >>= 1; b <<= 1; b%=M;if (b >= M) b -= M;} return res;}
+ll bigMod(ll p, ll q, ll M){ ll ans=1;while(q){ if(q&1) ans = mulmod(ans,p,M); p = mulmod(p,p,M); q>>=1;} return ans%M;}
+ll inverseMod(ll p, ll M){ return bigMod(p,M-1,M);}
